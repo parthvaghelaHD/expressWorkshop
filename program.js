@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const process = require('process');
-const path = require('path')
+const path = require('path');
+const fs = require('fs'); 
 const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({ extended: false }))
 // app.use(require('stylus').middleware(process.argv[3]))
@@ -32,10 +33,19 @@ app.use(bodyparser.urlencoded({ extended: false }))
     next();
     res.send(str)
   })
+
+
+  app.get('/search', (req, res) => {
+    const query = req.query;
+    res.send(query);
+  })
 */
 
-app.get('/search', (req, res) => {
-  const query = req.query;
-  res.send(query);
-})
+  app.get('/books', (req, res)=>{
+    fs.readFile(process.argv[3], (err, data)=>{
+      if (err) throw err;
+      const books = JSON.parse(data.toString());
+      res.json(books);
+    })
+  })
 app.listen(process.argv[2]);
