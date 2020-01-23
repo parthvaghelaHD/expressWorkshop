@@ -1,9 +1,9 @@
 const express = require('express');
-const app = express();  
+const app = express();
 const process = require('process');
 const path = require('path')
 const bodyparser = require('body-parser');
-app.use(bodyparser.urlencoded({extended: false}))
+app.use(bodyparser.urlencoded({ extended: false }))
 // app.use(require('stylus').middleware(process.argv[3]))
 
 // app.use(express.static('public'));
@@ -21,7 +21,7 @@ app.use(bodyparser.urlencoded({extended: false}))
     console.log(req.body);
     res.send(req.body.str.split('').reverse().join(''))
   })
-*/
+
 
   app.put('/message/:id', (req, res, next)=>{
     const id = req.params.id;
@@ -32,4 +32,10 @@ app.use(bodyparser.urlencoded({extended: false}))
     next();
     res.send(str)
   })
+*/
+
+app.get('/search', (req, res) => {
+  const query = req.query;
+  res.send(query);
+})
 app.listen(process.argv[2]);
